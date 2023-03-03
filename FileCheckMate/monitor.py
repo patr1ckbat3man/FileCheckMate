@@ -1,49 +1,39 @@
-import hashlib
+import sys
 from pathlib import Path
 
 from .db import RedisClient
+from .prompts import file_config, interval_config
 
 class Monitor:
-	def __init__(self):
-		self.redis_client = RedisClient()
+    def __init__(self):
+        self.redis_client = RedisClient()
 
-	def start(self, target_folder="targets"):
-		Path(target_folder).mkdir(exist_ok=True)
-		self.menu()
+    def start(self, target_folder: str = "targets") -> None:
+        Path(target_folder).mkdir(exist_ok=True)
+        self.menu()
 
-		if self.folder_empty(target_folder):
-			print("Target folder cannot be empty.")
-			return
+    def menu(self) -> None:
+        actions = {
+            1: lambda: self.redis_client.write(file_config=file_config()),
+            2: lambda: None,
+            3: lambda: None,
+            4: lambda: self.redis_client.verify(),
+            5: lambda: sys.exit(0),
+        }
 
-		self.redis_client.remove_pairs()
-			
-	def exit(self):
-		pass
+        while True:
+            print("1 - Load / Reload baseline")
+            print("2 - Configure email (Disabled by default)")
+            print("3 - Configure logger (Disabled by default)")
+            print("4 - Start monitoring")
+            print("5 - Stop monitoring and exit")
 
-	def menu(self):
-		actions = {
-		1: lambda: self.redis_client.write_pairs(),
-		2: lambda: None,
-		3: lambda: None,
-		4: lambda: None,
-		5: lambda: None,
-		6: lambda: None,
-		"default": lambda: print("Wrong choice.")
-		}
-
-		print("1 - Load / Reload baseline")
-		print("2 - Reload baseline")
-		print("3 - ")
-		print("4 - ")
-		print("5 - Start monitoring")
-		print("6 - Stop monitoring")
-
-		try:
-			choice = int(input("> "))
-			action = actions.get(choice, actions["default"])
-			action()
-		except ValueError:
-			print("Wrong data input.")
-
-	def folder_empty(self, folder_path):
-		return not any(Path(folder_path).iterdir())
+            try:
+                choice = int(input("> "))
+                if choice not in actions:
+                    print("Invalid choice! Choose from: 1 - 5")
+                else:
+                    action = actions[choice]
+                    action()
+            except ValueError:
+                print("Wrong data input!")

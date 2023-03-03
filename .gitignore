@@ -2,5 +2,8 @@ __pycache__/
 *.pyc
 env/
 
+*.rdb
 FileCheckMate/*.rdb
-targets/
+targets
+
+.idea
