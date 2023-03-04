@@ -4,6 +4,8 @@ from typing import Any
 
 import redis
 
+from .dev.log import logger
+
 class RedisClient:
     LOADED = False
 
@@ -32,7 +34,7 @@ class RedisClient:
             self.pipe.set(file.name, self.sha256sum(file))
         self.pipe.execute()
         self.LOADED = True
-        print("[MONITOR] Baseline loaded successfully.")
+        logger.info("Baseline loaded successfully.")
 
     def verify(self, interval: int) -> None:
         if not self.LOADED:
@@ -54,13 +56,13 @@ class RedisClient:
         temp_pairs = list(zip(temp_keys, temp_values))
 
         if sorted(cached_pairs) == sorted(temp_pairs):
-            print("[MONITOR] No files have changed.")
+            logger.info("No files have changed.")
         else:
-            print("[MONITOR] The integrity of following file(s) have changed: ")
+            logger.info("The integrity of following file(s) have changed: ")
             for i, (cached_key, cached_value) in enumerate(sorted(cached_pairs)):
                 temp_key, temp_value = sorted(temp_pairs)[i]
                 if cached_key != temp_key or cached_value != temp_value:
-                    print(temp_key)
+                    logger.info(temp_key)
         self.scheduler.enter(interval, 1, self.verify, (interval,))
 
     @staticmethod

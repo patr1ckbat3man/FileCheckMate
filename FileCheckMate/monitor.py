@@ -1,5 +1,6 @@
 import sched
 import time
+import os
 import sys
 from pathlib import Path
 
@@ -11,25 +12,24 @@ class Monitor:
         self.scheduler = sched.scheduler(time.time, time.sleep)
         self.redis_client = RedisClient(scheduler=self.scheduler)
 
-    def start(self, target_folder: str = "targets") -> None:
+    def start(self, target_folder: str = "targets", log_folder: str = "logs") -> None:
         Path(target_folder).mkdir(exist_ok=True)
+        Path(log_folder).mkdir(exist_ok=True)
         self.menu()
 
     def menu(self) -> None:
         actions = {
             1: lambda: self.redis_client.write(file_config=file_config()),
             2: lambda: None,
-            3: lambda: None,
-            4: lambda: self.start_verification(),
-            5: lambda: sys.exit(0),
+            3: lambda: self.start_verification(),
+            4: lambda: sys.exit(0),
         }
 
         while True:
             print("1 - Load / Reload baseline")
             print("2 - Configure email (Disabled by default)")
-            print("3 - Configure logger (Disabled by default)")
-            print("4 - Start monitoring")
-            print("5 - Stop monitoring and exit")
+            print("3 - Start monitoring")
+            print("4 - Stop monitoring and exit")
 
             try:
                 choice = int(input("> "))
@@ -44,6 +44,7 @@ class Monitor:
     def start_verification(self):
         try:
             interval = interval_config()
+            os.system("cls||clear")
             print("[MONITOR] Press CTRL + C to stop monitoring.")
             self.scheduler.enter(interval, 1, self.redis_client.verify, (interval,))
             self.scheduler.run()
