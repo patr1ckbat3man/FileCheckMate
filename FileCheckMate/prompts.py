@@ -6,13 +6,12 @@ def log_config():
 def email_config():
     pass
 
-def interval_config() -> int:
+def interval_config(default_interval: int = 600) -> int:
     try:
         interval = input("Enter verification interval in seconds (press [ENTER] for default 600):\n> ")
         if not interval:
-            return 600
-        interval = int(interval)
-        return interval
+            return default_interval
+        return int(interval)
     except ValueError:
         print("Wrong data input!")
 
@@ -32,5 +31,3 @@ def file_config() -> list[str] | None:
             return None
     except ValueError:
         print("Wrong data input!")
-
-    print("Enter time interval (in seconds): \n> ")

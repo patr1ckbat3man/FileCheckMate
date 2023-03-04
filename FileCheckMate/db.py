@@ -7,14 +7,15 @@ import redis
 class RedisClient:
     LOADED = False
 
-    def __init__(self):
+    def __init__(self, scheduler):
+        self.scheduler = scheduler
         self.client = redis.Redis(decode_responses=True)
         self.pipe = self.client.pipeline()
         self.targets = list(Path("targets").iterdir())
 
     def write(self, file_config=None) -> None:
         if self.is_empty("targets"):
-            print("Target folder cannot be empty.")
+            print("[MONITOR] Target folder cannot be empty.")
             return
 
         if file_config:
@@ -31,11 +32,11 @@ class RedisClient:
             self.pipe.set(file.name, self.sha256sum(file))
         self.pipe.execute()
         self.LOADED = True
-        print("Baseline loaded successfully.")
+        print("[MONITOR] Baseline loaded successfully.")
 
-    def verify(self) -> None:
+    def verify(self, interval: int) -> None:
         if not self.LOADED:
-            print("You have to load a baseline first!")
+            print("[MONITOR] You have to load a baseline first!")
             return
 
         keys = list(self.client.scan_iter())
@@ -52,7 +53,15 @@ class RedisClient:
             temp_values.append(self.sha256sum(file))
         temp_pairs = list(zip(temp_keys, temp_values))
 
-        print(cached_pairs.sort() == temp_pairs.sort())
+        if sorted(cached_pairs) == sorted(temp_pairs):
+            print("[MONITOR] No files have changed.")
+        else:
+            print("[MONITOR] The integrity of following file(s) have changed: ")
+            for i, (cached_key, cached_value) in enumerate(sorted(cached_pairs)):
+                temp_key, temp_value = sorted(temp_pairs)[i]
+                if cached_key != temp_key or cached_value != temp_value:
+                    print(temp_key)
+        self.scheduler.enter(interval, 1, self.verify, (interval,))
 
     @staticmethod
     def sha256sum(file: Any, buffer_size: int = 65536) -> str:

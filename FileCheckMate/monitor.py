@@ -1,3 +1,5 @@
+import sched
+import time
 import sys
 from pathlib import Path
 
@@ -6,7 +8,8 @@ from .prompts import file_config, interval_config
 
 class Monitor:
     def __init__(self):
-        self.redis_client = RedisClient()
+        self.scheduler = sched.scheduler(time.time, time.sleep)
+        self.redis_client = RedisClient(scheduler=self.scheduler)
 
     def start(self, target_folder: str = "targets") -> None:
         Path(target_folder).mkdir(exist_ok=True)
@@ -17,7 +20,7 @@ class Monitor:
             1: lambda: self.redis_client.write(file_config=file_config()),
             2: lambda: None,
             3: lambda: None,
-            4: lambda: self.redis_client.verify(),
+            4: lambda: self.start_verification(),
             5: lambda: sys.exit(0),
         }
 
@@ -37,3 +40,12 @@ class Monitor:
                     action()
             except ValueError:
                 print("Wrong data input!")
+
+    def start_verification(self):
+        try:
+            interval = interval_config()
+            print("[MONITOR] Press CTRL + C to stop monitoring.")
+            self.scheduler.enter(interval, 1, self.redis_client.verify, (interval,))
+            self.scheduler.run()
+        except KeyboardInterrupt:
+            print("\n[MONITOR] Stopping monitor...")
