@@ -1,8 +1,6 @@
 import os
 import logging.config
 
-tmp = "%(asctime)s\t%(levelname)s\t%(filename)s\t%(message)s"
-
 base_dir = os.path.abspath(os.path.dirname(__file__))
 logs_target = os.path.abspath(os.path.join(base_dir, "../../logs/monitor.log"))
 
@@ -29,7 +27,8 @@ LOGGING_CONFIG = {
             "filename": logs_target,
             "mode": "a",
             "encoding": "utf-8",
-            "maxBytes": 500000,
+            "maxBytes": 1048576,
+            "backupCount": 10
         }
     },
     "loggers": {

@@ -1,11 +1,3 @@
-import getpass
-
-def log_config():
-    pass
-
-def email_config():
-    pass
-
 def interval_config(default_interval: int = 600) -> int:
     try:
         interval = input("Enter verification interval in seconds (press [ENTER] for default 600):\n> ")

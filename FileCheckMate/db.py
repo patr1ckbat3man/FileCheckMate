@@ -1,6 +1,6 @@
 import hashlib
 from pathlib import Path
-from typing import Any
+from typing import Any, List
 
 import redis
 
@@ -9,29 +9,40 @@ from .dev.log import logger
 class RedisClient:
     LOADED = False
 
-    def __init__(self, scheduler):
-        self.scheduler = scheduler
-        self.client = redis.Redis(decode_responses=True)
-        self.pipe = self.client.pipeline()
+    def __init__(self):
         self.targets = list(Path("targets").iterdir())
+        self.client = None
+        self.pipe = None
+        self._connect()
 
-    def write(self, file_config=None) -> None:
+    def _connect(self, host: str = "localhost", port: int = 6379) -> None:
+        self.client = redis.Redis(host=host, port=port, decode_responses=True)
+        self.pipe = self.client.pipeline()
+
+    def write(self, file_config: List[str] = None) -> None:
         if self.is_empty("targets"):
             print("[MONITOR] Target folder cannot be empty.")
             return
 
         if file_config:
-            to_remove = set(file_config)
+            target_names = [f.name for f in self.targets]
+            for file_name in file_config:
+                if file_name not in target_names:
+                    logger.info(f"{file_name} isn't present in the targeted directory!")
+                    return
+
             new_targets = []
 
             for file in self.targets:
-                if file.name not in to_remove:
+                if file.name not in file_config:
                     new_targets.append(file)
             self.targets = new_targets
 
         self.client.flushall()
         for file in self.targets:
-            self.pipe.set(file.name, self.sha256sum(file))
+            file_hash = self.sha256sum(file)
+            if file_hash:
+                self.pipe.set(file.name, file_hash)
         self.pipe.execute()
         self.LOADED = True
         logger.info("Baseline loaded successfully.")
@@ -58,12 +69,10 @@ class RedisClient:
         if sorted(cached_pairs) == sorted(temp_pairs):
             logger.info("No files have changed.")
         else:
-            logger.info("The integrity of following file(s) have changed: ")
             for i, (cached_key, cached_value) in enumerate(sorted(cached_pairs)):
                 temp_key, temp_value = sorted(temp_pairs)[i]
                 if cached_key != temp_key or cached_value != temp_value:
-                    logger.info(temp_key)
-        self.scheduler.enter(interval, 1, self.verify, (interval,))
+                    logger.info(f"The integrity of {temp_key} has changed.")
 
     @staticmethod
     def sha256sum(file: Any, buffer_size: int = 65536) -> str:
@@ -71,13 +80,16 @@ class RedisClient:
         buffer = bytearray(buffer_size)
         buffer_view = memoryview(buffer)
 
-        with open(file, "rb", buffering=0) as f:
-            while True:
-                chunk = f.readinto(buffer_view)
-                if not chunk:
-                    break
-                h.update(buffer_view[:chunk])
-            return h.hexdigest()
+        try:
+            with open(file, "rb", buffering=0) as f:
+                while True:
+                    chunk = f.readinto(buffer_view)
+                    if not chunk:
+                        break
+                    h.update(buffer_view[:chunk])
+                return h.hexdigest()
+        except FileNotFoundError:
+            pass
 
     @staticmethod
     def is_empty(folder_path: Any) -> bool:
