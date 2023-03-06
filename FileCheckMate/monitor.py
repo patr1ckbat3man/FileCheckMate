@@ -1,5 +1,5 @@
-import sched
 import time
+import schedule
 import os
 import sys
 from pathlib import Path
@@ -11,7 +11,6 @@ from .dev.log import logger
 class Monitor:
 
     def __init__(self):
-        self.scheduler = sched.scheduler(time.time, time.sleep)
         self.redis_client = RedisClient()
 
     def start(self, target_folder: str = "targets", log_folder: str = "logs") -> None:
@@ -42,13 +41,24 @@ class Monitor:
                 print("Wrong data input!")
 
     def start_verification(self) -> None:
+        if not self.redis_client.check_baseline():
+            print("[MONITOR] You have to load a baseline first!")
+            return
+
         try:
             interval = interval_config()
             os.system("cls||clear")
             print("[MONITOR] Press CTRL + C to stop monitoring.")
+            schedule.every(interval).seconds.do(self.redis_client.verify)
 
-            self.scheduler.enter(interval, 1, self.redis_client.verify, (interval,))
-            self.scheduler.run()
+            while True:
+                schedule.run_pending()
+                time.sleep(1)
         except KeyboardInterrupt:
             print()
             logger.info("Monitoring stopped.")
+
+    def on_exit(self):
+        print("[MONITOR] Exiting...")
+        self.redis_client.clear()
+        sys.exit(0)

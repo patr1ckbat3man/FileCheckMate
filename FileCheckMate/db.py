@@ -24,6 +24,9 @@ class RedisClient:
             print("[MONITOR] Target folder cannot be empty.")
             return
 
+        if self.check_baseline():
+            self.clear()
+
         if file_config:
             target_names = [f.name for f in self.targets]
             for file_name in file_config:
@@ -38,7 +41,6 @@ class RedisClient:
                     new_targets.append(file)
             self.targets = new_targets
 
-        self.client.flushall()
         for file in self.targets:
             file_hash = self.sha256sum(file)
             if file_hash:
@@ -47,11 +49,7 @@ class RedisClient:
         self.LOADED = True
         logger.info("Baseline loaded successfully.")
 
-    def verify(self, interval: int) -> None:
-        if not self.LOADED:
-            print("[MONITOR] You have to load a baseline first!")
-            return
-
+    def verify(self) -> None:
         keys = list(self.client.scan_iter())
         values = []
         for k in keys:
@@ -73,6 +71,16 @@ class RedisClient:
                 temp_key, temp_value = sorted(temp_pairs)[i]
                 if cached_key != temp_key or cached_value != temp_value:
                     logger.info(f"The integrity of {temp_key} has changed.")
+
+    def check_baseline(self) -> bool:
+        if not self.LOADED:
+            return False
+        return True
+
+    def clear(self) -> None:
+        self.client.flushall()
+        self.LOADED = False
+        logger.info("Baseline cleared successfully.")
 
     @staticmethod
     def sha256sum(file: Any, buffer_size: int = 65536) -> str:
