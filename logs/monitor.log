@@ -1,124 +1,15 @@
-06 Mar 23 01:57:04 Baseline loaded successfully.
-06 Mar 23 01:58:37 Baseline loaded successfully.
-06 Mar 23 02:06:48 Baseline loaded successfully.
-06 Mar 23 02:06:55 No files have changed.
-06 Mar 23 02:06:58 No files have changed.
-06 Mar 23 02:06:59 Monitoring stopped.
-06 Mar 23 02:14:46 Baseline loaded successfully.
-06 Mar 23 02:18:00 Baseline loaded successfully.
-06 Mar 23 04:16:05 Monitoring stopped.
-06 Mar 23 04:22:29 Baseline loaded successfully.
-06 Mar 23 04:32:47 file.014 isn't present in the targeted directory!
-06 Mar 23 15:01:43 file.001 isn't present in the targeted directory!
-06 Mar 23 15:01:57 file.001 isn't present in the targeted directory!
-06 Mar 23 15:02:55 Baseline loaded successfully.
-06 Mar 23 15:03:04 No files have changed.
-06 Mar 23 15:07:31 The integrity of file.015 has changed.
-06 Mar 23 15:07:31 The integrity of file.016 has changed.
-06 Mar 23 15:07:31 The integrity of file.017 has changed.
-06 Mar 23 15:07:31 The integrity of file.018 has changed.
-06 Mar 23 15:07:31 The integrity of file.019 has changed.
-06 Mar 23 15:07:31 The integrity of file.020 has changed.
-06 Mar 23 15:07:31 The integrity of file.021 has changed.
-06 Mar 23 15:07:31 The integrity of file.022 has changed.
-06 Mar 23 15:07:31 The integrity of file.023 has changed.
-06 Mar 23 15:07:31 The integrity of file.024 has changed.
-06 Mar 23 15:07:31 The integrity of file.025 has changed.
-06 Mar 23 15:07:31 The integrity of file.026 has changed.
-06 Mar 23 15:07:31 The integrity of file.027 has changed.
-06 Mar 23 15:07:31 The integrity of file.028 has changed.
-06 Mar 23 15:07:31 The integrity of file.029 has changed.
-06 Mar 23 15:07:31 The integrity of file.030 has changed.
-06 Mar 23 15:07:31 The integrity of file.031 has changed.
-06 Mar 23 15:07:31 The integrity of file.032 has changed.
-06 Mar 23 15:07:31 The integrity of file.033 has changed.
-06 Mar 23 15:07:31 The integrity of file.034 has changed.
-06 Mar 23 15:07:31 The integrity of file.035 has changed.
-06 Mar 23 15:07:31 The integrity of file.036 has changed.
-06 Mar 23 15:07:31 The integrity of file.037 has changed.
-06 Mar 23 15:07:31 The integrity of file.038 has changed.
-06 Mar 23 15:07:31 The integrity of file.039 has changed.
-06 Mar 23 15:07:31 The integrity of file.040 has changed.
-06 Mar 23 15:07:31 The integrity of file.041 has changed.
-06 Mar 23 15:07:31 The integrity of file.042 has changed.
-06 Mar 23 15:07:31 The integrity of file.043 has changed.
-06 Mar 23 15:07:31 The integrity of file.044 has changed.
-06 Mar 23 15:07:31 The integrity of file.045 has changed.
-06 Mar 23 15:07:31 The integrity of file.046 has changed.
-06 Mar 23 15:07:31 The integrity of file.047 has changed.
-06 Mar 23 15:07:31 The integrity of file.048 has changed.
-06 Mar 23 15:07:31 The integrity of file.049 has changed.
-06 Mar 23 15:07:31 The integrity of file.050 has changed.
-06 Mar 23 15:07:31 The integrity of file.051 has changed.
-06 Mar 23 15:07:31 The integrity of file.052 has changed.
-06 Mar 23 15:07:31 The integrity of file.053 has changed.
-06 Mar 23 15:07:31 The integrity of file.054 has changed.
-06 Mar 23 15:07:31 The integrity of file.055 has changed.
-06 Mar 23 15:07:31 The integrity of file.056 has changed.
-06 Mar 23 15:07:31 The integrity of file.058 has changed.
-06 Mar 23 15:07:31 The integrity of file.059 has changed.
-06 Mar 23 15:07:31 The integrity of file.060 has changed.
-06 Mar 23 15:07:31 The integrity of file.061 has changed.
-06 Mar 23 15:07:31 The integrity of file.062 has changed.
-06 Mar 23 15:07:31 The integrity of file.063 has changed.
-06 Mar 23 15:07:31 The integrity of file.064 has changed.
-06 Mar 23 15:07:31 The integrity of file.065 has changed.
-06 Mar 23 15:07:31 The integrity of file.066 has changed.
-06 Mar 23 15:07:31 The integrity of file.067 has changed.
-06 Mar 23 15:07:31 The integrity of file.068 has changed.
-06 Mar 23 15:07:31 The integrity of file.069 has changed.
-06 Mar 23 15:07:31 The integrity of file.070 has changed.
-06 Mar 23 15:07:31 The integrity of file.071 has changed.
-06 Mar 23 15:07:31 The integrity of file.072 has changed.
-06 Mar 23 15:07:31 The integrity of file.073 has changed.
-06 Mar 23 15:07:31 The integrity of file.074 has changed.
-06 Mar 23 15:07:31 The integrity of file.075 has changed.
-06 Mar 23 15:07:31 The integrity of file.076 has changed.
-06 Mar 23 15:07:31 The integrity of file.077 has changed.
-06 Mar 23 15:07:31 The integrity of file.078 has changed.
-06 Mar 23 15:07:31 The integrity of file.079 has changed.
-06 Mar 23 15:07:31 The integrity of file.080 has changed.
-06 Mar 23 15:07:31 The integrity of file.081 has changed.
-06 Mar 23 15:07:31 The integrity of file.082 has changed.
-06 Mar 23 15:07:31 The integrity of file.083 has changed.
-06 Mar 23 15:07:31 The integrity of file.084 has changed.
-06 Mar 23 15:07:31 The integrity of file.085 has changed.
-06 Mar 23 15:07:31 The integrity of file.086 has changed.
-06 Mar 23 15:07:31 The integrity of file.087 has changed.
-06 Mar 23 15:07:31 The integrity of file.088 has changed.
-06 Mar 23 15:07:31 The integrity of file.089 has changed.
-06 Mar 23 15:07:31 The integrity of file.090 has changed.
-06 Mar 23 15:07:31 The integrity of file.091 has changed.
-06 Mar 23 15:07:31 The integrity of file.092 has changed.
-06 Mar 23 15:07:31 The integrity of file.093 has changed.
-06 Mar 23 15:07:31 The integrity of file.094 has changed.
-06 Mar 23 15:07:31 The integrity of file.095 has changed.
-06 Mar 23 15:07:31 The integrity of file.096 has changed.
-06 Mar 23 15:07:31 The integrity of file.097 has changed.
-06 Mar 23 15:07:31 The integrity of file.098 has changed.
-06 Mar 23 15:07:31 The integrity of file.099 has changed.
-06 Mar 23 15:11:26 Baseline loaded successfully.
-06 Mar 23 15:11:32 No files have changed.
-06 Mar 23 15:12:18 Baseline loaded successfully.
-06 Mar 23 15:12:22 No files have changed.
-06 Mar 23 15:13:54 Baseline loaded successfully.
-06 Mar 23 15:14:00 Baseline cleared successfully.
-06 Mar 23 15:14:00 Baseline loaded successfully.
-06 Mar 23 15:14:23 Baseline loaded successfully.
-06 Mar 23 15:14:30 Baseline cleared successfully.
-06 Mar 23 15:14:30 Baseline loaded successfully.
-06 Mar 23 15:14:37 Baseline cleared successfully.
-06 Mar 23 15:14:37 Baseline loaded successfully.
-06 Mar 23 15:19:11 Baseline cleared successfully.
-06 Mar 23 15:24:17 File(s): file.001 are not present in the targeted directory!
-06 Mar 23 15:27:03 Baseline loaded successfully.
-06 Mar 23 15:27:06 No files have changed.
-06 Mar 23 15:30:55 file.001 isn't present in the targeted directory!
-06 Mar 23 15:30:59 Baseline loaded successfully.
-06 Mar 23 15:31:04 No files have changed.
-06 Mar 23 16:04:29 Baseline loaded successfully.
-06 Mar 23 16:04:38 No files have changed.
-06 Mar 23 16:04:43 No files have changed.
-06 Mar 23 16:04:48 No files have changed.
-06 Mar 23 16:04:53 No files have changed.
-06 Mar 23 16:04:53 Monitoring stopped.
+07 Mar 23 19:54:18 Script terminated.
+07 Mar 23 19:54:18 Baseline cleared successfully.
+07 Mar 23 19:55:26 Baseline loaded successfully.
+07 Mar 23 19:55:29 No files have changed.
+07 Mar 23 19:55:30 No files have changed.
+07 Mar 23 19:55:31 No files have changed.
+07 Mar 23 19:55:32 No files have changed.
+07 Mar 23 19:55:32 Monitoring stopped.
+07 Mar 23 19:55:35 No files have changed.
+07 Mar 23 19:55:36 No files have changed.
+07 Mar 23 19:55:37 No files have changed.
+07 Mar 23 19:55:38 No files have changed.
+07 Mar 23 19:55:38 Monitoring stopped.
+07 Mar 23 19:55:40 Script terminated.
+07 Mar 23 19:55:40 Baseline cleared successfully.

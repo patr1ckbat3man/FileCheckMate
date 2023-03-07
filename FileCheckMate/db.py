@@ -31,7 +31,7 @@ class RedisClient:
             target_names = [f.name for f in self.targets]
             for file_name in file_config:
                 if file_name not in target_names:
-                    logger.info(f"{file_name} isn't present in the targeted directory!")
+                    print("[MONITOR] Some of the file(s) you have specified aren't present in the target directory!")
                     return
 
             new_targets = []

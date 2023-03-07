@@ -12,17 +12,17 @@ class Monitor:
 
     def __init__(self):
         self.redis_client = RedisClient()
+        self.running = False
 
-    def start(self, target_folder: str = "targets", log_folder: str = "logs") -> None:
+    def start(self, target_folder: str = "targets") -> None:
         Path(target_folder).mkdir(exist_ok=True)
-        Path(log_folder).mkdir(exist_ok=True)
         self.menu()
 
     def menu(self) -> None:
         actions = {
             1: lambda: self.redis_client.write(file_config=file_config()),
             2: lambda: self.start_verification(),
-            3: lambda: sys.exit(0),
+            3: lambda: self.on_exit(),
         }
 
         while True:
@@ -49,16 +49,21 @@ class Monitor:
             interval = interval_config()
             os.system("cls||clear")
             print("[MONITOR] Press CTRL + C to stop monitoring.")
+
+            if self.running:
+                schedule.clear()
+
             schedule.every(interval).seconds.do(self.redis_client.verify)
 
             while True:
                 schedule.run_pending()
+                self.running = True
                 time.sleep(1)
         except KeyboardInterrupt:
             print()
             logger.info("Monitoring stopped.")
 
     def on_exit(self):
-        print("[MONITOR] Exiting...")
+        logger.info("Script terminated.")
         self.redis_client.clear()
         sys.exit(0)
